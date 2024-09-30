@@ -1,0 +1,27 @@
+const int ledpin =12;
+const int ldrpin=A0;
+int threshold=600;
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(ledpin, OUTPUT);
+pinMode(ldrpin, INPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int ldrstatus=analogRead(ldrpin);
+
+  if(ldrstatus<=threshold){
+    digitalWrite(ledpin, HIGH);
+    Serial.print("its dark turn on led: ");
+    Serial.println(ldrstatus);
+
+  }else{
+    digitalWrite(ledpin, LOW);
+    Serial.print("its bright turn off light: ");
+    Serial.println(ldrstatus);
+  }
+  delay(1000);
+}
