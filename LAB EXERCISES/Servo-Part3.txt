@@ -1,0 +1,26 @@
+#include <Servo.h>
+
+Servo myservo;
+int angle;  // Variable to store the user-defined angle
+
+void setup() {
+  myservo.attach(9);  // Attach the servo on pin 9
+  Serial.begin(9600); // Start serial communication at 9600 baud
+  Serial.println("Enter an angle between 0 and 180:");
+}
+
+void loop() {
+  // Check if data is available in the serial buffer
+  if (Serial.available() > 0) {
+    angle = Serial.parseInt();  // Read the input angle
+    
+    // Validate the angle input
+    if (angle >= 0 && angle <= 180) {
+      myservo.write(angle);  // Move the servo to the specified angle
+      Serial.print("Servo moved to angle: ");
+      Serial.println(angle);
+    } else {
+      Serial.println("Invalid angle. Enter a value between 0 and 180.");
+    }
+  }
+}
