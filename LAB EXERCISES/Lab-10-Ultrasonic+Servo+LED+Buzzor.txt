@@ -1,0 +1,68 @@
+#include <Servo.h>  // Include the Servo library
+
+// Define pin numbers for Ultrasonic Sensor, Buzzer, and Servo
+const int trigPin = 12;    // Pin connected to Trig of HC-SR04
+const int echoPin = 11;   // Pin connected to Echo of HC-SR04
+const int buzzerPin = 8;  // Pin connected to Buzzer
+const int servoPin = 6;  // Pin connected to Servo
+
+Servo myServo;  // Create a Servo object to control the servo motor
+
+// Variables for duration and distance
+long duration;
+float distance;
+
+void setup() {
+  // Initialize the serial communication
+  Serial.begin(9600);
+  
+  // Set pin modes
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+  
+  // Attach the servo motor to the defined pin
+  myServo.attach(servoPin);
+  
+  // Initial servo position
+  myServo.write(0);  // Set servo to 0 degrees
+  
+  Serial.println("Ultrasonic Sensor with Buzzer and Servo Motor Initialized");
+}
+
+void loop() {
+  // Clear the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  
+  // Trigger the ultrasonic sensor
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Read the echoPin, and calculate the duration for the pulse to return
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Calculate the distance in cm
+  distance = (duration * 0.034) / 2;
+  
+  // Print the distance to the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  
+  // Control the buzzer and servo motor based on distance
+  if (distance <= 20 && distance > 0) {
+    tone(buzzerPin, 1000);  // Activate the buzzer at 1000 Hz frequency
+    
+    // Move the servo based on the distance
+    // int servoAngle = map(distance, 0, 20, 0, 180);  // Map distance to angle (0-20 cm to 0-180 degrees)
+    myServo.write(45);  // Rotate the servo motor
+  } else {
+    noTone(buzzerPin);  // Turn off the buzzer
+    myServo.write(0);   // Reset servo to 0 degrees
+  }
+  
+  // Delay between readings
+  delay(500);
+}
