@@ -5,7 +5,8 @@ https://forms.office.com/r/EG3GvyZALv
 ## DAY-2
 https://forms.office.com/r/EG3GvyZALv
 
-
+## DAY-3
+https://forms.office.com/r/EG3GvyZALv
 
 ## My-Wokwi-Projects
 
@@ -13,6 +14,9 @@ https://forms.office.com/r/EG3GvyZALv
 
 https://forms.office.com/r/WfyKXi0eHV
 
+## Pre-Test Practice Day 3:
+
+https://forms.office.com/r/WfyKXi0eHV
 
 ## LAB2-PUSH-BUTTON+LED
 https://wokwi.com/projects/410349289538102273
