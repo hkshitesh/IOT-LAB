@@ -1,0 +1,80 @@
+#include <DHT.h>
+
+#define LEDGreen  2
+#define LEDRed    3
+#define LEDBlue 5
+#define Buzzer    4
+
+#define DHT_PIN   7
+#define DHT_TYPE  DHT22
+
+#define sensorMIN  0
+#define sensorMAX  512
+#define Threshold  300
+
+DHT dht(DHT_PIN,DHT_TYPE);
+
+int value = 0 ; //variable to store the sensor value
+int level = 0 ; //variable to store the sensor level
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600); //output using serial
+  pinMode(Buzzer, OUTPUT);
+  pinMode(LEDGreen, OUTPUT);
+  pinMode(LEDRed, OUTPUT);
+  pinMode(LEDBlue, OUTPUT);
+  digitalWrite(LEDGreen, LOW);
+  digitalWrite(LEDRed, LOW);
+  digitalWrite(LEDBlue, LOW);
+
+  dht.begin();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  noTone(Buzzer);
+  digitalWrite(LEDGreen, LOW);
+  digitalWrite(LEDRed, LOW);
+  digitalWrite(LEDBlue, LOW);
+
+  value = analogRead(DHT_PIN);
+  digitalWrite(DHT_PIN, LOW);
+  delay(500);
+
+  float temperature = dht.readTemperature();
+  float humidity = dht.readHumidity();
+
+  if (temperature < 25 && humidity < 25) {
+    noTone(Buzzer);
+    digitalWrite(LEDGreen, HIGH);
+    digitalWrite(LEDRed, LOW);
+    digitalWrite(LEDBlue, LOW);
+
+    Serial.print("ATTENTION!!! LOW TEMPERATURE");
+  }
+
+  else if (temperature > 35 || humidity >35) {
+    tone(Buzzer,500);
+    digitalWrite(LEDGreen, LOW);
+    digitalWrite(LEDRed, HIGH);
+    digitalWrite(LEDBlue, LOW);
+
+    Serial.print("ATTENTION!!! TEMPERATURE TOO HIGH ");
+  }
+
+  else if (temperature > 40 || humidity < 40) {
+    tone(Buzzer,800);
+    digitalWrite(LEDGreen, LOW);
+    digitalWrite(LEDRed, LOW);
+    digitalWrite(LEDBlue, HIGH); 
+  }
+
+  else
+    level = map(value,sensorMIN,sensorMAX,0,10); // to be 10 levels
+
+  Serial.print("TEMPERATURE DETECTED: ");
+  Serial.print(temperature);
+  Serial.print(" HUMIDITY: ");
+  Serial.println(humidity);
+}
