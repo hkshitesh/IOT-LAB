@@ -1,0 +1,43 @@
+// Define pin numbers
+const int trigPin = 12;  // Pin connected to Trig of HC-SR04
+const int echoPin = 11; // Pin connected to Echo of HC-SR04
+
+// Variables to store time and distance
+long duration;
+float distance;
+
+void setup() {
+  // Start the serial communication
+  Serial.begin(9600);
+  
+  // Define the pin modes
+  pinMode(trigPin, OUTPUT); // Trig pin as output
+  pinMode(echoPin, INPUT);  // Echo pin as input
+  
+  Serial.println("Ultrasonic Sensor HC-SR04 Initialized");
+}
+
+void loop() {
+  // Clear the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  
+  // Trigger the sensor by setting the trigPin HIGH for 10 microseconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Read the echoPin, and calculate the duration it took for the pulse to return
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Calculate the distance in cm (duration * 0.034 / 2)
+  distance = (duration * 0.034) / 2;
+  
+  // Print the distance to the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  
+  // Wait before the next measurement
+  delay(500);
+}
