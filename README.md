@@ -76,6 +76,9 @@ https://wokwi.com/projects/410471729965674497
 ## LAB-15-Keypad-LCD
 https://wokwi.com/projects/410574622121758721
 
+## LAB-20- Blynk with Two Servo-Motors
+https://wokwi.com/projects/410719968531391489
+
 
 
 ## Project 1: Smart Home Management System
