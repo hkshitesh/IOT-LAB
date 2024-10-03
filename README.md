@@ -76,6 +76,12 @@ https://wokwi.com/projects/410471729965674497
 ## LAB-15-Keypad-LCD
 https://wokwi.com/projects/410574622121758721
 
+## LAB-16- ESP32 HTTP Server-Single LED
+https://wokwi.com/projects/410666251789080577
+
+## LAB-17- ESP32 HTTP Server-Single LED
+https://wokwi.com/projects/410666251789080577
+
 ## LAB-18-LAB-18-ESP32-SERVO
 https://wokwi.com/projects/410668100138243073
 
